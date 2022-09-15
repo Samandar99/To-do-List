@@ -2,14 +2,30 @@ import React, { useState } from "react";
 import "../style/Sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
+
 const Sidebar = () => {
   const [nav, Setnav] = useState("s-wrap");
   const [toggleIcon, setToggleIcon] = useState("nav__toggler");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [moadlOpen, setModal] = useState(true);
+  const [blocks, setBlocks] = useState("blocks");
+  const [noneText, setNoneText] = useState("task-all");
+  const [burger, setBurger] = useState("nav__toggler1");
+
+  const [inputCateroes, setInputCateroes] = useState([]);
+  const [newInputCategories, setnewInputCategories] = useState("");
+  const [newFolderColorIndex, setNewFolderColorIndex] = useState(0);
+  const colors = [
+    "colorcircle1",
+    "colorcircle2",
+    "colorcircle3",
+    "colorcircle4",
+    "colorcircle5",
+    "colorcircle6",
+    "colorcircle7",
+  ];
 
   const closedModal = () => {
-    setIsModalOpen(false);
+    setIsModalOpen(!true);
   };
 
   const toggleModal = () => {
@@ -23,75 +39,119 @@ const Sidebar = () => {
     toggleIcon === "nav__toggler"
       ? setToggleIcon("nav__toggler toggle")
       : setToggleIcon("nav__toggler");
+
+    blocks === "blocks"
+      ? setBlocks("blocks blocksactive")
+      : setBlocks("blocks");
+
+    noneText === "task-all"
+      ? setNoneText("task-all taskNone")
+      : setNoneText("task-all");
+
+    burger === "nav__toggler1"
+      ? setBurger("nav__toggler1 navleft")
+      : setBurger("nav__toggler1");
+  };
+
+  const handlerInputCategores = (e) => {
+    setnewInputCategories(e.target.value);
+  };
+
+  const handlerClickCateroes = (e) => {
+    if (newInputCategories === "") {
+      return;
+    }
+
+    inputCateroes.push({
+      id: inputCateroes.length + 1,
+      description: newInputCategories,
+      color: newFolderColorIndex,
+    });
+
+    setInputCateroes([...inputCateroes]);
+    setnewInputCategories("");
+    setNewFolderColorIndex(0);
+    setIsModalOpen();
+  };
+
+  const handlerClosedCategories = (id) => {
+    const removeId = inputCateroes.filter((category) => {
+      return category.id !== id;
+    });
+    setInputCateroes(removeId);
+  };
+  const handleColorSelect = (index) => {
+    setNewFolderColorIndex(index);
   };
 
   return (
     <div className={nav}>
       <div className="focus">
         <div className="all-text">
-          <div onClick={handlerNav} className={toggleIcon}>
-            <div className="line1"></div>
-            <div className="line2"></div>
-            <div className="line3"></div>
+          <div className={burger}>
+            <div onClick={handlerNav} className={toggleIcon}>
+              <div className="line1"></div>
+              <div className="line2"></div>
+              <div className="line3"></div>
+            </div>
           </div>
-          <span className="task-all">All Tasks </span>
+          <span className={noneText}>All Tasks</span>
         </div>
       </div>
 
       <div className="S-block">
-        <div className="S-box">
-          <div className="circle"></div>
-          <span className="Pur-text">Purchases </span>
-        </div>
-        <div className="S-box">
-          <div className="circle1"></div>
-          <span className="Pur-text">Frontend </span>
-        </div>
+        <div className={blocks}>
+          {inputCateroes.map((item) => (
+            <div className="S-box" key={item.id}>
+              <div className="eys">
+                <div className={`circle ${colors[item.color]}`}></div>
 
-        <div className="S-box">
-          <div className="circle2"></div>
-          <span className="Pur-text">Movies </span>
-        </div>
+                <span className="Pur-text">{item.description}</span>
+              </div>
+              <div onClick={() => handlerClosedCategories(item.id)}>
+                <FontAwesomeIcon
+                  icon={faClose}
+                  className="childernbox"
+                ></FontAwesomeIcon>
+              </div>
+            </div>
+          ))}
 
-        <div className="S-box">
-          <div className="circle3"></div>
-          <span className="Pur-text">Books </span>
+          <div className="plus" onClick={toggleModal}>
+            <span className="plus start">+</span>
+            <span className="addtext">Add folder</span>
+          </div>
         </div>
-
-        <div className="S-box">
-          <div className="circle4"></div>
-          <span className="Pur-text">private </span>
-        </div>
-        <div className="plus" onClick={toggleModal}>
-          <span className="plus start">+</span>
-          <span className="addtext">Add faile</span>
-        </div>
-
         {isModalOpen ? (
           <div className="modal__active">
-            <div className="circleBlack" onClick={closedModal}>
+            <button className="circleBlack" onClick={closedModal}>
               <FontAwesomeIcon
                 icon={faClose}
                 className="faClosed"
               ></FontAwesomeIcon>
-            </div>
+            </button>
 
-            <input type="text" className="selection" />
+            <input
+              value={newInputCategories}
+              type="text"
+              className="selection"
+              onChange={handlerInputCategores}
+            />
 
             <div className="circles">
-              <div className="colorcircle"></div>
-              <div className="colorcircle1"></div>
-
-              <div className="colorcircle2"></div>
-              <div className="colorcircle3"></div>
-
-              <div className="colorcircle4"></div>
-              <div className="colorcircle5"></div>
-
-              <div className="colorcircle6"></div>
-              <div className="colorcircle7"></div>
+              {colors.map((item, index) => (
+                <div
+                  className={`colorcircle ${item} ${
+                    index === newFolderColorIndex ? "colorBorder" : ""
+                  }`}
+                  key={index}
+                  onClick={() => handleColorSelect(index)}
+                ></div>
+              ))}
             </div>
-            <button className="s-button">Add</button>
+            <button className="buttonrr" onClick={handlerClickCateroes}>
+              Add
+            </button>
           </div>
         ) : null}
       </div>

@@ -1,11 +1,27 @@
 .s-wrap{
     width: 200px;
-    height: 108vh;
+    height: 111vh;
     background-color: #E5E5E5;
     text-align: center;
     transform: translateX(0%);
     transition: 0.4s ease-in;
+    
 }
+.blocks{
+    overflow: hidden;
+    width: 160px;
+    height: auto;
+    /* background-color: #42B883; */
+    z-index: 0;
+}
+
+.blocksactive{
+    width: 30px;
+    overflow: hidden;
+}
+
+
+
 .plus{
    margin-top: 2rem; 
    cursor: pointer;
@@ -23,6 +39,7 @@
 .addtext{
     color: #767676;
     margin-left: 5px;
+    font-size: 15px;
 }
 
 .all-text{
@@ -33,11 +50,17 @@
     order: 1;
     align-items: center;
     transition: all 0.4s ease-in-out;
+    overflow: hidden;
 }
 
 .task-all{
     margin-left: 10px;
+   
 }
+.taskNone {
+    display: none;
+}
+
 
 .all-text:hover{
   
@@ -62,14 +85,7 @@
     
 }
 
-.S-box{
-    width: 160px;
-    height: 37px;
-    margin-top: 4px;
-    display: flex; 
-    align-items: center;
-    border-radius: 4px;
-}
+
 
 .S-box:hover{
     background-color: #fff;
@@ -82,9 +98,14 @@
     background-color: #42B883;
     border-radius: 50%;
     margin-left: 12px;
+
 }
 
 .Pur-text{
+    max-width: 100px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     margin-left: 10px;
 }
 
@@ -97,6 +118,7 @@
     border-radius: 50%;
     margin-left: 12px;
 }
+
 
 .circle2{
     width: 10px;
@@ -125,10 +147,17 @@
 
 
 
-.nav__toggler{
+
+.nav__toggler1{
    margin-left: 48px; 
    order: 2;
 }
+.navleft{
+    margin-left: -2px;
+   
+} 
+
+
 
 .nav__toggler div {
     width: 1.5rem;
@@ -139,7 +168,7 @@
 }
 
 .nav__active {
-    transform: translateX(-70%);  
+    width: 30px;
     
 
 }
@@ -173,6 +202,7 @@
     
     position: relative;
     animation: fadein .5s;
+    
 }
 
 @keyframes fadein {
@@ -203,6 +233,9 @@
     left: 14rem;
     top: -6px;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .faClosed{
@@ -217,92 +250,118 @@
     justify-content: space-around;
     width: 210px;
     margin: 12px 12px auto;
-  
+    
 }
+
+.colorcircle{
+  
+    background-color: #C9D1D3;
+   
+}
+
 
 .colorcircle{
     width: 20px;
     height: 20px;
-    background-color: #C9D1D3;
     border-radius: 50%;
+    cursor: pointer;
 }
 
-
-.colorcircle1{
-    width: 20px;
-    height: 20px;
-    background-color: 
-    #42B883;
-    border-radius: 50%;
+.colorcircle1 {
+    background-color: #42B883;
 }
 
 .colorcircle2{
-    width: 20px;
-    height: 20px;
-    background-color: 
-    #64C4ED;
-    border-radius: 50%;
+    
+    background-color: #64C4ED;
+    
 }
 
 
 
 
 .colorcircle3{
-    width: 20px;
-    height: 20px;
-    background-color: 
-    #FFBBCC;
-    border-radius: 50%;
+   
+    background-color: #FFBBCC;
+  
 }
 
 
 
 .colorcircle4{
-    width: 20px;
-    height: 20px;
-    background-color: 
-    #B6E6BD;
-    border-radius: 50%;
+   
+    background-color: #B6E6BD;
+    
 }
 
 
 
 .colorcircle5{
-    width: 20px;
-    height: 20px;
-    background-color: 
-    #C355F5;
-    border-radius: 50%;
+   
+    background-color: #C355F5;
+    
 }
 
 
 
 .colorcircle6{
-    width: 20px;
-    height: 20px;
-    background-color: 
-    #09011A;
-    border-radius: 50%;
+   
+    background-color:#09011A;
+    
 }
 
 
 
 .colorcircle7{
-    width: 20px;
-    height: 20px;
-    background-color: 
-    #FF6464;
-    border-radius: 50%;
+    
+    background-color:#FF6464;
+    
+}
+
+.colorBorder{
+    border: 1.5px solid #808080;
+    transition: all 0.1s ease-in;
+    
 }
 
 
 
-.s-button{
+
+.buttonrr{
     width: 200px;
     height: 37px;
     background-color: #4DD599;
     border: none;
     border-radius: 5px;
-    margin-top: 13px;
+    position: absolute;
+    bottom: 10px;
+    
+    left: 1rem;
     color: #fff;
+    margin: 0 !important;
+   padding: 0 !important;
+   box-sizing: border-box;
+}
+
+
+
+.S-box{
+    width: 160px;
+    height: 37px;
+    margin-top: 4px;
+    display: flex; 
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+}
+
+.eys{
+    display: flex;
+    align-items: center;
+}
+
+.childernbox{
+    margin-right: 1rem;
+    color: #E3E3E3;
+    cursor: pointer;
 }

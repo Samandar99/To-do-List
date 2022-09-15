@@ -85,12 +85,15 @@ const Main = () => {
             </div>
           </div>
         ) : (
-          <div className="addTask" onClick={onClick}>
-            <FontAwesomeIcon
-              icon={faPlus}
-              className="add-icon"
-            ></FontAwesomeIcon>
-            <span className="add-text">Add Task</span>
+          <div className="do">
+            <div className="addTask" onClick={onClick}>
+              <span className="add-text"> Add Task</span>
+
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="add-icon"
+              ></FontAwesomeIcon>
+            </div>
           </div>
         )}
       </div>
