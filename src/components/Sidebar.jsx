@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "../style/Sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
+import Modal from "./Modal";
 
 const Sidebar = () => {
   const [nav, Setnav] = useState("s-wrap");
@@ -12,8 +13,7 @@ const Sidebar = () => {
   const [burger, setBurger] = useState("nav__toggler1");
 
   const [inputCateroes, setInputCateroes] = useState([]);
-  const [newInputCategories, setnewInputCategories] = useState("");
-  const [newFolderColorIndex, setNewFolderColorIndex] = useState(0);
+
   const colors = [
     "colorcircle1",
     "colorcircle2",
@@ -53,24 +53,13 @@ const Sidebar = () => {
       : setBurger("nav__toggler1");
   };
 
-  const handlerInputCategores = (e) => {
-    setnewInputCategories(e.target.value);
-  };
-
-  const handlerClickCateroes = (e) => {
-    if (newInputCategories === "") {
-      return;
-    }
-
+  const addNewItem = (item) => {
     inputCateroes.push({
       id: inputCateroes.length + 1,
-      description: newInputCategories,
-      color: newFolderColorIndex,
+      ...item,
     });
 
     setInputCateroes([...inputCateroes]);
-    setnewInputCategories("");
-    setNewFolderColorIndex(0);
     setIsModalOpen();
   };
 
@@ -79,9 +68,6 @@ const Sidebar = () => {
       return category.id !== id;
     });
     setInputCateroes(removeId);
-  };
-  const handleColorSelect = (index) => {
-    setNewFolderColorIndex(index);
   };
 
   return (
@@ -123,36 +109,11 @@ const Sidebar = () => {
           </div>
         </div>
         {isModalOpen ? (
-          <div className="modal__active">
-            <button className="circleBlack" onClick={closedModal}>
-              <FontAwesomeIcon
-                icon={faClose}
-                className="faClosed"
-              ></FontAwesomeIcon>
-            </button>
-
-            <input
-              value={newInputCategories}
-              type="text"
-              className="selection"
-              onChange={handlerInputCategores}
-            />
-
-            <div className="circles">
-              {colors.map((item, index) => (
-                <div
-                  className={`colorcircle ${item} ${
-                    index === newFolderColorIndex ? "colorBorder" : ""
-                  }`}
-                  key={index}
-                  onClick={() => handleColorSelect(index)}
-                ></div>
-              ))}
-            </div>
-            <button className="buttonrr" onClick={handlerClickCateroes}>
-              Add
-            </button>
-          </div>
+          <Modal
+            onSubmit={addNewItem}
+            colors={colors}
+            closedModal={closedModal}
+          />
         ) : null}
       </div>
     </div>
